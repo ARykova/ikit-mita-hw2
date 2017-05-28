@@ -12,25 +12,39 @@ namespace HomeWork2
     {
         static void Main(string[] args)
         {
-            Car car1 = new Car("LADA", Categories.D);
-
-            car1.Color = Color.DarkViolet;
-            
+            Car car1;
             try
             {
-                Console.WriteLine(car1.Passport.Owner.Name);              
+                car1 = new Car("LADA", Categories.D);
             }
-            catch(NullReferenceException e)
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                Console.Read();
+                return;
+            }
+            try
+            {
+                car1.Color = Color.DarkViolet;
+            }
+            catch (NullReferenceException e)
+            {
+                Console.WriteLine(e.Message + "Вероятно, не удалось создать машину");
+            }
+            try
+            {
+                Console.WriteLine(car1.Passport.Owner.Name);
+            }
+            catch (NullReferenceException e)
             {
                 Console.WriteLine(e.Message + " Вероятно, у машины еще нет владельца.");
             }
-            
+
             Driver driver1 = new Driver(Convert.ToDateTime("12.12.2013"), "Вольдемар");
             driver1.Category = new List<Categories> { Categories.A, Categories.B };
-
             try
             {
-                car1.ChangeOwner(driver1, "o777oo");                
+                car1.ChangeOwner(driver1, "o777oo");
             }
             catch (Exception e)
             {
@@ -48,11 +62,12 @@ namespace HomeWork2
             {
                 Console.WriteLine(e.Message);
             }
-            
+
             Console.WriteLine("Номер машины водителя " + driver1.Name + ": " + driver1.Car.CarNumber);
             Console.WriteLine("Имя водителя, за которым закреплена машина с номером " +
                 car1.CarNumber + ": " + car1.Passport.Owner.Name);
             Console.Read();
+
         }
     }
 }

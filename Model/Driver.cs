@@ -24,7 +24,10 @@ namespace Model
         {
             get
             {
-                return DateTime.Now.Year - LicenseDate.Year;
+                if (DateTime.Now.Month < LicenseDate.Month ||
+                    DateTime.Now.Month == LicenseDate.Month && DateTime.Now.Day < LicenseDate.Day)
+                    return DateTime.Now.Year - LicenseDate.Year - 1;
+                else return DateTime.Now.Year - LicenseDate.Year;
             }
         }
 
@@ -39,7 +42,6 @@ namespace Model
             else
             {
                 Car = car;
-                Car.Passport.Owner = this;
             }
         }             
     }

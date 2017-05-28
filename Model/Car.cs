@@ -15,7 +15,8 @@ namespace Model
         {
             Passport = new CarPassport(this);
             Model = model;
-            Category = category;
+            if (category == Categories.A) throw new Exception("Нельзя присвоить категорию А машине");
+            else Category = category;
             Color = Color.Blue;
         }
         
@@ -31,8 +32,9 @@ namespace Model
         
         public void ChangeOwner(Driver newOwner, string newCarNumber)
         {
+            CarNumber = newCarNumber;
+            Passport.Owner = newOwner;
             newOwner.OwnCar(this);
-            CarNumber = newCarNumber;            
         }
     }
 }
